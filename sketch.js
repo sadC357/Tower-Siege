@@ -4,6 +4,10 @@ const Bodies = Matter.Bodies;
 const Constraint = Matter.Constraint;
 var engine, world;
 
+function preload() {
+  polygon_img=loadImage("Polygon.png");
+}
+
 function setup() {
   createCanvas(1200,400);
 
@@ -24,26 +28,24 @@ function setup() {
   box8 = new Box(420,195,30,40);
   box9 = new Box(390,155,30,40);
 
-  ball = new Ball(200,200);
+  boxes1 = new Box(640,175,30,40);
+  boxes2 = new Box(670,175,30,40);
+  boxes3 = new Box(700,175,30,40);
+  boxes4 = new Box(730,175,30,40);
+  boxes5 = new Box(760,175,30,40);
+  boxes6 = new Box(670,135,30,40);
+  boxes7 = new Box(700,135,30,40);
+  boxes8 = new Box(730,135,30,40);
+  boxes9 = new Box(700,95,30,40);
 
-  boxes1 = new Box(640,435,30,40);
-  boxes2 = new Box(670,455,30,40);
-  boxes3 = new Box(700,435,30,40);
-  boxes4 = new Box(730,435,30,40);
-  boxes5 = new Box(750,435,30,40);
-  boxes6 = new Box(670,395,30,40);
-  boxes7 = new Box(700,395,30,40);
-  boxes8 = new Box(730,395,30,40);
-  boxes9 = new Box(670,355,30,40);
-
-  slingshot = new SlingShot(ball.body,{x:200, y:200});
-  
-  
+  ball=Bodies.circle(50,200,20);
+  World.add(world,ball);
+  slingshot = new SlingShot(this.ball,{x:100, y:200});
 }
 
 function draw() {
   background(0);  
-  
+
   ground.display();
   stand1.display();
   stand2.display();
@@ -68,13 +70,16 @@ function draw() {
   boxes8.display();
   boxes9.display();
 
-  ball.display();
+  imageMode(CENTER);
+  image(polygon_img,ball.position.x,ball.position.y,40,40);
+
+  slingshot.display();
 
   drawSprites();
 }
 
 function mouseDragged(){
-  Matter.Body.setPosition(ball.body, {x: mouseX , y: mouseY});
+  Matter.Body.setPosition(this.ball, {x: mouseX , y: mouseY});
 }
 
 function mouseReleased(){
